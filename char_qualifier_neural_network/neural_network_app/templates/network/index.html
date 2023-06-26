@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- <link rel="icon" href="kabachoke-icon.ico"> -->
+    <title>Sunder's NeuralNetwork</title>
+</head>
+<body onload="init();">
+    <div class="arsen-container">
+        <div class="arsen-content">
+            <div class="left-side">
+                <!-- MAIN PAINT CANVAS -->
+                <div class="canvas-board" style="height: fit-content;">
+                    <canvas id="canv" style="border: 2px solid; border-radius: 10px; width: fit-content; height: fit-content; min-width: 800px; min-height: 500px;"></canvas>
+                </div>
+                <!-- FOOTER CONTAINER -->
+                <div class="row-4">
+                    <!-- TRAIN BUTTON AND PROGRESS BAR -->
+                    <div class="buttons-wrapper">
+                        <button type="button" class="button-train" onclick="retrain_network();">Train</button>
+                        <div class="input-group-train">
+                            <input id="train-iter-count" type="text" class="form-controller" placeholder="Iter count" aria-label="Iter count" aria-describedby="basic-addon1">
+                        </div>
+                        <div id="train-progress-container" class="train-progress-wrapper">
+                            <div id="train-progress-text" style="text-align:center;">Train progress:</div>
+                            <div class="progress-footer" style="height: 25px; width: 100%;">
+                                <div id="train-progress" class="progress-bar-footer"
+                                     role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">0%</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ERASE BUTTON -->
+                    <div class="button-clear-wrapper">
+                        <button type="button" class="button-train" onclick="erase();">Clear</button>
+                    </div>
+
+                    <!-- TRAIN/SHOW MODE BUTTON TOGGLE -->
+                    <div class="button-trainmode-wrapper">
+                        <button type="button" class="button-train" onclick="mode_toggle();">Train mode</button>
+                    </div>
+                </div>
+            </div>
+            <div class="right-side">
+                <!-- PROGRESS AND TRAIN INDICATORS -->
+                <div class="column-1" id="numbers"></div>
+                <div class="column-1" id="alphabet-0"></div>
+                <div class="column-1" id="alphabet-1"></div>
+                <div class="column-1" id="alphabet-2"></div>
+            </div>
+        </div>
+
+    </div>
+    <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/requests.js' %}"></script>
+    <script src="{% static 'js/paint.js' %}"></script>
+    <!-- MAIN SCRIPT -->
+    <script type="text/javascript">
+        let letter_fields = []
+        let numbers = [] 
+        
+        var train_mode_status = 0
+
+        var base_url = "http://127.0.0.1:8000/"
+        var canvas = document.getElementById("canv");
+        var ctx = canvas.getContext('2d');
+        var lastPoint;
+        ctx.lineJoin = ctx.lineCap = 'round';
+        var isDrawing = false
+        
+        let number_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, '@']
+        let alphabet_0 = ["А", "Б", "В", "Г", "Д", "Е", "Ё", "Ж", "З", "И", "Й"]
+        let alphabet_1 = ["К", "Л", "М", "Н", "О", "П", "Р", "С", "Т", "У", "Ф"]
+        let alphabet_2 = ["Х", "Ц", "Ч", "Ш", "Щ", "Ь", "Ы", "Ъ", "Э", "Ю", "Я"]
+
+        document.addEventListener('mousemove', drawLine);
+        window.addEventListener('resize', resizeCanvas)
+
+        function init(params) {
+            canvas.height = canvas.parentElement.clientHeight
+            canvas.width = canvas.parentElement.clientWidth
+            ctx.fillStyle = "white"
+            ctx.fillRect(0, 0, canvas.width, canvas.height)
+            letter_fields = document.getElementsByClassName("char-value")
+            show_mode()
+        }
+    </script>
+    </body>
+</html>
