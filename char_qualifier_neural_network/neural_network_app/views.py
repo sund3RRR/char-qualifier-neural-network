@@ -91,3 +91,24 @@ def process_image(request :HttpRequest):
 
         return JsonResponse({'status': 'success', 'result' : result})
     return JsonResponse({'status': 'error'}, status=400)
+
+@csrf_exempt
+def verify_train_data(request :HttpRequest):
+    if request.method == 'GET':
+        alphabet = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "@", "А", "Б",
+        "В", "Г", "Д", "Е", "Ё", "Ж", "З", "И", "Й", "К", "Л", "М", "Н", "О", "П", "Р",
+        "С", "Т", "У", "Ф","Х", "Ц", "Ч", "Ш", "Щ", "Ь", "Ы", "Ъ", "Э", "Ю", "Я"]
+
+        images = models.ImageModel.objects.all()
+        
+
+        for image in images:
+            result = process(Image.open(image.image))
+            result = result.split(" ")
+            result = [float(item) for item in result]
+            max_index = result.index(max(result))
+            if alphabet[max_index] != image.char:
+                print(image.image, alphabet[max_index], image.char)
+                    
+        return JsonResponse({'status': 'success'})
+    return JsonResponse({'status': 'error'}, status=400)
