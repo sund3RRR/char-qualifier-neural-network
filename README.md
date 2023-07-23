@@ -2,6 +2,9 @@
 
 Проект представляет собой нейронную сеть, определяющую цифры и буквы русского алфавита по картинкам.
 Нейросеть написана на `python`, в качестве бэкенда выступает `django`, визуализация - `html`, `js`, `css`.
+
+![image](https://github.com/sund3RRR/char-qualifier-neural-network/assets/73298492/cd0da03b-1878-410d-9fe9-66f7426b9593)
+
 ## Клонирование репозитория
 ```
 git clone https://github.com/kabachoke/char-qualifier-neural-network.git
