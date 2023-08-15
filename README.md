@@ -7,7 +7,7 @@
 
 ## Клонирование репозитория
 ```
-git clone https://github.com/kabachoke/char-qualifier-neural-network.git
+git clone https://github.com/sund3RRR/char-qualifier-neural-network.git
 cd char-qualifier-neural-network
 ```
 ## Настройка venv Linux
