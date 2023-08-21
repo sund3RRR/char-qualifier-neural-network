@@ -27,5 +27,4 @@ jobs:
         pip install -r requirements.txt
     - name: Run Tests
       run: |
-        ls -la
-        python manage.py test
+        python char-qualifier-neural-network/manage.py test
