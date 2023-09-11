@@ -5,7 +5,7 @@ RUN set -eux; \
 
 WORKDIR /app
 
-COPY ./app/char-qualifier-neural-network/ /app/
+COPY ./char-qualifier-neural-network/ /app/
 
 RUN set -eux; \
     pip install pip --upgrade; \
