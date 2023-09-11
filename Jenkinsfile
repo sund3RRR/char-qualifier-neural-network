@@ -13,8 +13,10 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'echo "Running tests"'
-                sh 'python3 manage.py tests'
+                dir 'app/char-qualifier-neural-network' {
+                    sh 'echo "Running tests"'
+                    sh 'python3 manage.py tests'
+                }
             }
         }
     }
