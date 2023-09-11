@@ -29,7 +29,7 @@ pipeline {
 
                     sh '''
                     . ./char-qualifier-neural-network/venv/bin/activate
-                    pylint --rcfile=.pylintrc char-qualifier-neural-network/*.py
+                    pylint --rcfile=char-qualifier-neural-network/.pylintrc char-qualifier-neural-network/*.py
                     '''
 
                     sh 'echo "Linting success"'
