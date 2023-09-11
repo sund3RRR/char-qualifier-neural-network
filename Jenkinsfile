@@ -25,6 +25,7 @@ pipeline {
         stage('Lint') {
             steps {
                 sh 'echo "Starting pylint"'
+                sh 'ls -la'
                 sh '''
                 . ./venv/bin/activate
                 pylint --rcfile=pylint.cfg funniest/ $(find . -maxdepth 1 -name "*.py" -print) \
@@ -36,6 +37,7 @@ pipeline {
         stage('Test') {
             steps {
                 sh 'echo "Running tests"'
+                sh 'ls -la'
                 sh '''
                 . ./venv/bin/activate
                 python3 manage.py test
