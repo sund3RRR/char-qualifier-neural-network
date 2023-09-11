@@ -1,3 +1,6 @@
+[MASTER]
+init-hook='import sys; sys.path.append(".")'
+
 [MAIN]
 
 # Python code to execute, usually for sys.path manipulation such as
