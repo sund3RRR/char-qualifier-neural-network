@@ -13,13 +13,13 @@ pipeline {
         stage('Build environment') {
             steps {
                 dir('app/char-qualifier-neural-network') {
-                    sh 'Building virtual environment'
+                    sh 'echo "Building virtual environment"'
 
                     sh 'virtualenv --python=/usr/bin/python venv'
                     sh 'export TERM="linux"'
                     sh 'pip install -r requirements.txt'
 
-                    sh 'echo Building environment success'
+                    sh 'echo "Building environment success"'
                 }
             }
         }
