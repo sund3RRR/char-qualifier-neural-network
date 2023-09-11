@@ -1,9 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'python:3.11.5-bookworm'
-        }
-    }
+    agent any
     stages {
         stage('Checkout') {
             steps {
@@ -15,8 +11,9 @@ pipeline {
                 dir('app/char-qualifier-neural-network') {
                     sh 'echo "Building virtual environment"'
 
-                    sh 'virtualenv --python=/usr/bin/python venv'
+                    sh 'virtualenv --python=/usr/bin/python3 venv'
                     sh 'export TERM="linux"'
+                    sh 'source ./venv/bin/activate'
                     sh 'pip install -r requirements.txt'
 
                     sh 'echo "Building environment success"'
