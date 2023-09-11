@@ -26,12 +26,15 @@ pipeline {
             steps {
                 dir('app/char-qualifier-neural-network') {
                     sh 'echo "Starting pylint"'
+
                     sh '''
                     . ./venv/bin/activate
-                    pylint --rcfile=pylint.cfg funniest/ $(find . -maxdepth 1 -name "*.py" -print) \
-                        --msg-template="{path}:{line}: [{msg_id}({symbol}), {obj}] {msg}" > pylint.log  \
-                        || echo "pylint exited with $?"'''
-                    sh 'cat pylint.log'
+                    find . -type f -name "*.py" | while read -r file; do
+                        echo "Checking $file with pylint..."
+                        pylint "$file"
+                    done
+                    '''
+
                     sh 'echo "Linting success"'
                 }
             }
