@@ -24,31 +24,33 @@ pipeline {
         }
         stage('Lint') {
             steps {
-                sh 'echo "Starting pylint"'
-                sh 'ls -la'
-                sh '''
-                . ./venv/bin/activate
-                pylint --rcfile=pylint.cfg funniest/ $(find . -maxdepth 1 -name "*.py" -print) \
-                    --msg-template="{path}:{line}: [{msg_id}({symbol}), {obj}] {msg}" > pylint.log  \
-                    || echo "pylint exited with $?"'''
-                sh 'echo "Linting success"'
+                dir('app/char-qualifier-neural-network') {
+                    sh 'echo "Starting pylint"'
+                    sh '''
+                    . ./venv/bin/activate
+                    pylint --rcfile=pylint.cfg funniest/ $(find . -maxdepth 1 -name "*.py" -print) \
+                        --msg-template="{path}:{line}: [{msg_id}({symbol}), {obj}] {msg}" > pylint.log  \
+                        || echo "pylint exited with $?"'''
+                    sh 'echo "Linting success"'
+                }
             }
         }
         stage('Test') {
             steps {
-                sh 'echo "Running tests"'
-                sh 'ls -la'
-                sh '''
-                . ./venv/bin/activate
-                python3 manage.py test
-                '''
+                dir('app/char-qualifier-neural-network') {
+                    sh 'echo "Running tests"'
+                    sh '''
+                    . ./venv/bin/activate
+                    python3 manage.py test
+                    '''
+                }
             }
         }
         stage('Deploy') {
             agent {
                 dockerfile {
                     filename 'Dockerfile'
-                    dir env.WORKSPACE + '/app'
+                    dir 'app'
                 }
             }
             steps {
