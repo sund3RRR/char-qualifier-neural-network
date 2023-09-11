@@ -15,7 +15,7 @@ pipeline {
             steps {
                 dir ('app/char-qualifier-neural-network') {
                     sh 'echo "Running tests"'
-                    sh 'python3 manage.py tests'
+                    sh 'python3 manage.py test'
                 }
             }
         }
