@@ -24,15 +24,12 @@ pipeline {
         }
         stage('Lint') {
             steps {
-                dir('app/char-qualifier-neural-network') {
+                dir('app') {
                     sh 'echo "Starting pylint"'
 
                     sh '''
-                    . ./venv/bin/activate
-                    find . -type f -name "*.py" | while read -r file; do
-                        echo "Checking $file with pylint..."
-                        pylint "$file"
-                    done
+                    . ./char-qualifier-neural-network/venv/bin/activate
+                    pylint --rcfile=.pylintrc char-qualifier-neural-network/*.py
                     '''
 
                     sh 'echo "Linting success"'
