@@ -14,7 +14,7 @@ pipeline {
                     sh 'virtualenv --python=/usr/bin/python3 venv'
                     sh 'export TERM="linux"'
                     sh '''
-                    . .venv/bin/activate
+                    . ./venv/bin/activate
                     pip install -r requirements.txt
                     '''
 
@@ -26,7 +26,7 @@ pipeline {
             steps {
                 sh 'Starting pylint'
                 sh '''
-                . .venv/bin/activate
+                . ./venv/bin/activate
                 pylint --rcfile=pylint.cfg funniest/ $(find . -maxdepth 1 -name "*.py" -print) \
                     --msg-template="{path}:{line}: [{msg_id}({symbol}), {obj}] {msg}" > pylint.log  \
                     || echo "pylint exited with $?"'''
@@ -36,7 +36,7 @@ pipeline {
             steps {
                 sh 'echo "Running tests"'
                 sh '''
-                . .venv/bin/activate
+                . ./venv/bin/activate
                 python3 manage.py test
                 '''
             }
