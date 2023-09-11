@@ -31,6 +31,7 @@ pipeline {
                     pylint --rcfile=pylint.cfg funniest/ $(find . -maxdepth 1 -name "*.py" -print) \
                         --msg-template="{path}:{line}: [{msg_id}({symbol}), {obj}] {msg}" > pylint.log  \
                         || echo "pylint exited with $?"'''
+                    sh 'cat pylint.log'
                     sh 'echo "Linting success"'
                 }
             }
