@@ -24,12 +24,13 @@ pipeline {
         }
         stage('Lint') {
             steps {
-                sh 'Starting pylint'
+                sh 'echo "Starting pylint"'
                 sh '''
                 . ./venv/bin/activate
                 pylint --rcfile=pylint.cfg funniest/ $(find . -maxdepth 1 -name "*.py" -print) \
                     --msg-template="{path}:{line}: [{msg_id}({symbol}), {obj}] {msg}" > pylint.log  \
                     || echo "pylint exited with $?"'''
+                sh 'echo "Linting success"'
             }
         }
         stage('Test') {
