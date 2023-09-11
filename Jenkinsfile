@@ -44,6 +44,9 @@ pipeline {
                     dir env.WORKSPACE + '/app'
                 }
             }
+            steps {
+                sh 'echo "Deploying..."'
+            }
         }
     }
 }
