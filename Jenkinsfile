@@ -14,7 +14,7 @@ pipeline {
         stage('Test') {
             steps {
                 sh 'echo "Running tests"'
-                sh 'ls -la'
+                sh 'python3 manage.py tests'
             }
         }
     }
